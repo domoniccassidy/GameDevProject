@@ -37,6 +37,7 @@ public class User : MonoBehaviour
     AudioSource audioSource;
     private void Start()
     {
+        
         liveText.text = Lives.ToString();
         timeText.text = TimeLeft.ToString();
         moneyText.text = Money.ToString();
@@ -49,6 +50,7 @@ public class User : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        OnDebug();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             foreach (var item in MonsterButtons)
@@ -232,5 +234,18 @@ public class User : MonoBehaviour
         isGameOver = true;
         win.enabled = true;
         AudioSource.PlayClipAtPoint(winClip, transform.position);
+    }
+
+    void OnDebug()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Money += 9999999;
+            moneyText.text = Money.ToString();
+
+        }
+
+#endif
     }
 }

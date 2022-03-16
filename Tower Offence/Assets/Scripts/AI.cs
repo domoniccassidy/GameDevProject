@@ -57,13 +57,11 @@ public class AI : MonoBehaviour
            
             if (alert4.Alert4 && towerSelect < 10000)
             {
-                Debug.Log(towerSelect);
                 towerSelect += 20000;
             }
             else if (alert3.Alert3 && towerSelect < 10000)
             {
 
-                Debug.Log(towerSelect);
                 towerSelect += 10000;
 
             }
@@ -145,46 +143,7 @@ public class AI : MonoBehaviour
 
 
 
-            //if (money == 100 && towerSelect < 8000)
-            //{
-
-            //    Vector3 potentialLocation = new Vector3(Random.Range(-15, 15) - 0.5f, Random.Range(-6, 6) - 0.5f);
-            //    List<Vector3> locationChecks = new List<Vector3>() { potentialLocation + Vector3.right, potentialLocation - Vector3.right, potentialLocation + Vector3.up, potentialLocation - Vector3.up };
-
-            //    if (baseTiles.GetTile<Tile>(baseTiles.layoutGrid.WorldToCell(potentialLocation)).name != "grass-tiles-2-small_3" && Uitls.CheckLocations(locationChecks, baseTiles, "grass-tiles-2-small_3") && Physics2D.OverlapCircleAll(potentialLocation, 0.4f).Length == 0)
-            //    {
-            //        if(tempRand > 9000)
-            //        {
-            //            Instantiate(tower1[0], potentialLocation, Quaternion.identity);
-            //            money -= 100;
-            //            newRand = false;
-            //            newTower = false;
-            //        }
-            //       else if(tempRand <= 9000 && numberTiles.GetTile<Tile>(baseTiles.layoutGrid.WorldToCell(potentialLocation)).name == "Numbers_1" )
-            //        {
-            //            Instantiate(tower1[0], potentialLocation, Quaternion.identity);
-            //            money -= 100;
-            //            newRand = false;
-            //            newTower = false;
-            //        }
-            //    }
-            //}
-            //if (money == 200 && towerSelect >= 8000)
-            //{
-
-            //    Vector3 potentialLocation = new Vector3(Random.Range(-15, 15) - 0.5f, Random.Range(-6, 6) - 0.5f);
-            //    List<Vector3> locationChecks = new List<Vector3>() { potentialLocation + Vector3.right, potentialLocation - Vector3.right, potentialLocation + Vector3.up, potentialLocation - Vector3.up };
-            //    Debug.Log("hello");
-
-            //    if (baseTiles.GetTile<Tile>(baseTiles.layoutGrid.WorldToCell(potentialLocation)).name != "grass-tiles-2-small_3" && Uitls.CheckLocations(locationChecks, baseTiles, "grass-tiles-2-small_3") && Physics2D.OverlapCircleAll(potentialLocation, 0.4f).Length == 0 && numberTiles.GetTile<Tile>(baseTiles.layoutGrid.WorldToCell(potentialLocation)).name == "Numbers_2")
-            //    {
-
-            //            Instantiate(tower1[1], potentialLocation, Quaternion.identity);
-            //            money -= 200;
-            //            newTower = false;
-
-            //    }
-            //}
+      
         }
     }
     void Start()

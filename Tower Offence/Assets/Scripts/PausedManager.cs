@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PausedManager : MonoBehaviour
 {
     public GameObject Mains;
     public GameObject Options;
     public AudioMixer AM;
+    public Slider MusicSlider;
+    public List<GameObject> selectedButtons;
+
     void Start()
     {
-        
+        MusicSlider.value = GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().slide;
     }
     public void OnOptions()
     {

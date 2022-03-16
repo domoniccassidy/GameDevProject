@@ -8235,7 +8235,7 @@ MonoBehaviour:
   - {fileID: 2339247158981658655, guid: 33e06eade3bc89f448a0dead0cb59cd2, type: 3}
   ES: {fileID: 1266006839}
   Lives: 50
-  Money: 53253424
+  Money: 100
   TimeLeft: 300
   liveText: {fileID: 2056825595}
   moneyText: {fileID: 918459}
@@ -8678,7 +8678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063786567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.463, y: -5.12, z: 0}
+  m_LocalPosition: {x: -2.463, y: -5.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1675929521}
@@ -9988,6 +9988,7 @@ MonoBehaviour:
   Mains: {fileID: 1239067343}
   Options: {fileID: 61202312}
   AM: {fileID: 24100000, guid: 9f1017fad8fb41744abf3683b54be3e2, type: 2}
+  MusicSlider: {fileID: 994438741}
 --- !u!4 &1396753119
 Transform:
   m_ObjectHideFlags: 0
