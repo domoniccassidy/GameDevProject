@@ -7,12 +7,15 @@ public class ArrowScript : MonoBehaviour
     public float moveSpeed = 10;
     public Transform enemy;
     public float damage = 2;
+    public string towerFiredFrom;
     float timeSinceFired = 0;
+    public float lifeSpan =1;
     User user;
-
+    Vector3 originalTransform;
     private void Start()
     {
         user = FindObjectOfType<User>();
+        originalTransform = transform.position;
     }
     private void Update()
     {
@@ -20,19 +23,32 @@ public class ArrowScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (user.isPaused)
+        {
+            return;
+        }
 
-        if (timeSinceFired > 2)
+        if (timeSinceFired > lifeSpan)
         {
             Destroy(gameObject);
+           
         }
-        if (enemy != null)
+        if (enemy != null && towerFiredFrom != "Circle")
         {
             Vector3 target = (enemy.position - transform.position).normalized;
             transform.position += target * Time.deltaTime * moveSpeed;
             timeSinceFired += Time.deltaTime;
         }
+        else if(towerFiredFrom == "Circle")
+        {
+
+            Vector3 target = transform.forward;
+            transform.position -= transform.up * Time.deltaTime * moveSpeed;
+            timeSinceFired += Time.deltaTime;
+        }
         else
         {
+            
             Destroy(gameObject);
         }
 

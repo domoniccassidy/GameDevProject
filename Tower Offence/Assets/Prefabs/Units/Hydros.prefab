@@ -99,11 +99,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Hydros
   speed: 2
-  health: 100
+  health: 50
   cost: 1000
   healthDamage: 10
   moneyGainedPerTile: 10
-  info: Beefcake, was a doctor pre einvasion
+  info: Big health, big damage, 60/60 vision
 --- !u!50 &2830561455136491411
 Rigidbody2D:
   serializedVersion: 4

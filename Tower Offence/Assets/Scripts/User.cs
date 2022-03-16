@@ -21,6 +21,8 @@ public class User : MonoBehaviour
     public Text infoText;
     public Text healthText;
 
+    public GameObject PauseMenu;
+    public List<Button> MonsterButtons;
     public Image win;
     public Image loss;
 
@@ -30,19 +32,33 @@ public class User : MonoBehaviour
     GameObject myEventSystem;
     
     public bool isGameOver = false;
-
+    public bool isPaused = false;
+    float musicVolume;
+    AudioSource audioSource;
     private void Start()
     {
         liveText.text = Lives.ToString();
         timeText.text = TimeLeft.ToString();
         moneyText.text = Money.ToString();
         myEventSystem  = GameObject.Find("EventSystem");
+        musicVolume = FindObjectOfType<SettingsManager>().musicVolume;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = musicVolume / 100;
 
     }
     // Update is called once per frame
     void Update()
     {
-        if (!isGameOver)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            foreach (var item in MonsterButtons)
+            {
+                item.enabled = !item.enabled;
+            }
+            PauseMenu.SetActive(!PauseMenu.activeSelf);
+            isPaused = !isPaused;
+        }
+        if (!isGameOver && !isPaused)
         {
             TimeLeft -= Time.deltaTime;
 
@@ -66,9 +82,17 @@ public class User : MonoBehaviour
             {
                 SpawnGobbi();
             }
-            if (Input.GetKeyDown(KeyCode.Keypad2))
+            if (Input.GetKeyDown(KeyCode.Keypad3))
             {
                 SpawnHydros();
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad4))
+            {
+                SpawnShronk();
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad5))
+            {
+                SpawnSummoner();
             }
         }
     }
@@ -100,7 +124,10 @@ public class User : MonoBehaviour
     }
     public void SpawnSkelle()
     {
- 
+        if(isPaused || isGameOver)
+        {
+            return;
+        }
         if (units[0].GetComponent<Unit>().cost <= Money)
         {
             ES.Spawn(units[0]);
@@ -112,6 +139,10 @@ public class User : MonoBehaviour
     }
     public void SpawnGobbi()
     {
+        if (isPaused || isGameOver)
+        {
+            return;
+        }
         if (units[1].GetComponent<Unit>().cost <= Money)
         {
             ES.Spawn(units[1]);
@@ -123,6 +154,10 @@ public class User : MonoBehaviour
     }
     public void SpawnHydros()
     {
+        if (isPaused || isGameOver)
+        {
+            return;
+        }
         if (units[2].GetComponent<Unit>().cost <= Money)
         {
             ES.Spawn(units[2]);
@@ -132,8 +167,42 @@ public class User : MonoBehaviour
 
         }
     }
+    public void SpawnShronk()
+    {
+        if (isPaused || isGameOver)
+        {
+            return;
+        }
+        if (units[3].GetComponent<Unit>().cost <= Money)
+        {
+            ES.Spawn(units[3]);
+            Money -= units[3].GetComponent<Unit>().cost;
+            moneyText.text = Money.ToString();
+            myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+        }
+    }
+    public void SpawnSummoner()
+    {
+        if (isPaused || isGameOver)
+        {
+            return;
+        }
+        if (units[4].GetComponent<Unit>().cost <= Money)
+        {
+            ES.Spawn(units[4]);
+            Money -= units[4].GetComponent<Unit>().cost;
+            moneyText.text = Money.ToString();
+            myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+        }
+    }
     public void MonsterInfo(int selectedMonster)
     {
+        if (isPaused || isGameOver)
+        {
+            return;
+        }
         //Debug.Log(units[selectedMonster].GetComponent<Unit>().monsterName);
         Unit monsterDetails = units[selectedMonster].GetComponent<Unit>();
         monsterText.text = ("Monster: " + monsterDetails.monsterName);
@@ -145,13 +214,21 @@ public class User : MonoBehaviour
     }
     void GameOver()
     {
+        foreach (var item in MonsterButtons)
+        {
+            item.enabled = !item.enabled;
+        }
         isGameOver = true;
         loss.enabled = true;
-        GetComponent<AudioSource>().Pause();
+        audioSource.Pause();
         AudioSource.PlayClipAtPoint(lossClip, transform.position);
     }
     void GoodOver()
     {
+        foreach (var item in MonsterButtons)
+        {
+            item.enabled = !item.enabled;
+        }
         isGameOver = true;
         win.enabled = true;
         AudioSource.PlayClipAtPoint(winClip, transform.position);
