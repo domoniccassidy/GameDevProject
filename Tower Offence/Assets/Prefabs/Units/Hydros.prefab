@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8502803854958298489}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.25, y: -1.78, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1573821, y: 1.16462, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,11 +99,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Hydros
   speed: 2
-  health: 50
+  health: 33
   cost: 1000
-  healthDamage: 10
+  healthDamage: 25
   moneyGainedPerTile: 10
-  info: Big health, big damage, 60/60 vision
+  info: Glass Cannon, 60/60 vision
+  skele: {fileID: 0}
+  points: {fileID: 0}
+  pointIndex: 0
 --- !u!50 &2830561455136491411
 Rigidbody2D:
   serializedVersion: 4

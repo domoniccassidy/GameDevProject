@@ -100,9 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Summoner
   speed: 1
-  health: 400
-  cost: 2000
-  healthDamage: 5
+  health: 100
+  cost: 1500
+  healthDamage: 0
   moneyGainedPerTile: 5
   info: Middle manager pre-invasion
   skele: {fileID: 0}

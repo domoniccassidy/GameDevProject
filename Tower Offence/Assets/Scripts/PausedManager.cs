@@ -11,24 +11,33 @@ public class PausedManager : MonoBehaviour
     public AudioMixer AM;
     public Slider MusicSlider;
     public List<GameObject> selectedButtons;
+    public User user;
 
     void Start()
     {
+        selectedButtons[0].GetComponent<Button>().Select();
         MusicSlider.value = GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().slide;
+        
     }
     public void OnOptions()
     {
         Mains.SetActive(false);
         Options.SetActive(true);
+        selectedButtons[1].GetComponent<Button>().Select();
     }
     public void OnBack()
     {
         Mains.SetActive(true);
         Options.SetActive(false);
+        selectedButtons[0].GetComponent<Button>().Select();
     }
     public void SetLevel(float sliderValue)
     {
         AM.SetFloat("MusicControl", Mathf.Log10(sliderValue) * 20);
+    }
+    public void OnResume()
+    {
+        user.OnPause();
     }
     public void OnQuitMM()
     {

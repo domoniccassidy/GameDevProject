@@ -149,5 +149,8 @@ MonoBehaviour:
   health: 4
   cost: 200
   healthDamage: 1
-  moneyGainedPerTile: 30
+  moneyGainedPerTile: 15
   info: Fast Fast, eye for cash, very squishy
+  skele: {fileID: 0}
+  points: {fileID: 0}
+  pointIndex: 0

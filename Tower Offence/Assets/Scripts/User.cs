@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.SceneManagement;
+
 public class User : MonoBehaviour
 {
     public List<GameObject> units;
@@ -8,7 +11,7 @@ public class User : MonoBehaviour
     public float Lives;
     public float Money;
     public float TimeLeft;
-    
+
 
 
     public Text liveText;
@@ -23,25 +26,37 @@ public class User : MonoBehaviour
 
     public GameObject PauseMenu;
     public List<Button> MonsterButtons;
-    public Image win;
-    public Image loss;
 
+    public GameObject blackOut;
+    public GameObject levelText;
+    public GameObject gameOverCanvas;
+    public GameObject outcomeText;
+    public GameObject stolenHolder;
+    public GameObject livesHolder;
+    public GameObject timeHolder;
+    public GameObject retryButton;
+    public GameObject menuButton;
+    public Text menuLivesText;
+    public Text menuTimeText;
+    public Text menuStolenText;
     public AudioClip winClip;
     public AudioClip lossClip;
-    
+    public AudioClip scream;
+
     GameObject myEventSystem;
-    
+
     public bool isGameOver = false;
     public bool isPaused = false;
+    public float moneyStolen = 0;
     float musicVolume;
     AudioSource audioSource;
     private void Start()
     {
-        
+        Screen.fullScreen = !Screen.fullScreen;
         liveText.text = Lives.ToString();
         timeText.text = TimeLeft.ToString();
         moneyText.text = Money.ToString();
-        myEventSystem  = GameObject.Find("EventSystem");
+        myEventSystem = GameObject.Find("EventSystem");
         musicVolume = FindObjectOfType<SettingsManager>().musicVolume;
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = musicVolume / 100;
@@ -53,12 +68,7 @@ public class User : MonoBehaviour
         OnDebug();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            foreach (var item in MonsterButtons)
-            {
-                item.enabled = !item.enabled;
-            }
-            PauseMenu.SetActive(!PauseMenu.activeSelf);
-            isPaused = !isPaused;
+            OnPause();
         }
         if (!isGameOver && !isPaused)
         {
@@ -66,13 +76,13 @@ public class User : MonoBehaviour
 
             if (Mathf.Floor(TimeLeft) < float.Parse(timeText.text))
             {
-                timeText.text = ((int) TimeLeft).ToString();
+                timeText.text = ((int)TimeLeft).ToString();
             }
             if (TimeLeft < 0)
             {
                 GameOver();
             }
-            if(Lives == 0)
+            if (Lives == 0)
             {
                 GoodOver();
             }
@@ -100,11 +110,11 @@ public class User : MonoBehaviour
     }
     public void TakeHealth(float healthTaken)
     {
-        
+
         if (!isGameOver)
         {
-            
-            if(Lives - healthTaken < 0)
+
+            if (Lives - healthTaken < 0)
             {
                 Lives = 0;
             }
@@ -114,19 +124,20 @@ public class User : MonoBehaviour
             }
             liveText.text = Lives.ToString();
         }
-        
+
     }
     public void MakeMoney(float money)
     {
         if (!isGameOver)
         {
             Money += money;
+            moneyStolen += money;
             moneyText.text = Money.ToString();
         }
     }
     public void SpawnSkelle()
     {
-        if(isPaused || isGameOver)
+        if (isPaused || isGameOver)
         {
             return;
         }
@@ -209,21 +220,93 @@ public class User : MonoBehaviour
         Unit monsterDetails = units[selectedMonster].GetComponent<Unit>();
         monsterText.text = ("Monster: " + monsterDetails.monsterName);
         costText.text = ("Cost: " + monsterDetails.cost);
-       healthText.text = ("Health: " + monsterDetails.health);
+        healthText.text = ("Health: " + monsterDetails.health);
         damageText.text = ("Damage: " + monsterDetails.healthDamage);
         stealageText.text = ("Stealage: " + monsterDetails.moneyGainedPerTile);
         infoText.text = (monsterDetails.info);
     }
+    public IEnumerator FadeBlackOut(bool win,int fadeSpeed =1)
+    {
+        gameOverCanvas.SetActive(true);
+        Color objectColour = blackOut.GetComponent<Image>().color;
+        Color levelTextColour = levelText.GetComponent<Text>().color;
+        float fadeAmount;
+        float waitTime = 1.4f;
+        float timeElapsed = 200 - TimeLeft;
+        float livesTaken = 50 - Lives;
+        while(blackOut.GetComponent<Image>().color.a < 1)
+        {
+            fadeAmount = objectColour.a += (fadeSpeed * Time.deltaTime);
+            objectColour = new Color(0,0, 0, fadeAmount);
+            levelTextColour = new Color(levelTextColour.r, levelTextColour.g, levelTextColour.b, fadeAmount);
+            levelText.GetComponent<Text>().color = levelTextColour;
+            blackOut.GetComponent<Image>().color = objectColour;
+            yield return null;
+        }
+        while(waitTime > 0)
+        {
+            waitTime -= Time.deltaTime;
+            yield return null;
+        }
+        waitTime = 1.4f;
+        if (win)
+        {
+            outcomeText.GetComponent<Text>().text = "Has Been Destroyed";
+        }
+        else
+        {
+            outcomeText.GetComponent<Text>().text = "Has Been Saved";
+
+        }
+        while (waitTime > 0)
+        {
+            waitTime -= Time.deltaTime;
+            yield return null;
+        }
+        stolenHolder.SetActive(true);
+        float tempStolen = 0;
+        while (tempStolen < moneyStolen)
+        {
+            tempStolen += 0.0005f * moneyStolen;
+            menuStolenText.text = Mathf.Round(tempStolen).ToString();
+            yield return null;
+        }
+        livesHolder.SetActive(true);
+        float tempLives = 0;
+        while (tempLives < livesTaken )
+        {
+            tempLives += 0.0005f * livesTaken;
+            menuLivesText.text = Mathf.Round(tempLives).ToString();
+            yield return null;
+        }
+        timeHolder.SetActive(true);
+        float tempTime = 0;
+        while (tempTime < timeElapsed)
+        {
+            tempTime += 0.0005f * timeElapsed;
+            menuTimeText.text = Mathf.Round(tempTime).ToString();
+            yield return null;
+        }
+        retryButton.SetActive(true);
+        menuButton.SetActive(true);
+
+
+    }
     void GameOver()
     {
+
         foreach (var item in MonsterButtons)
         {
             item.enabled = !item.enabled;
         }
         isGameOver = true;
-        loss.enabled = true;
-        audioSource.Pause();
+        if (audioSource)
+        {
+            audioSource.Pause();
+        }
+        
         AudioSource.PlayClipAtPoint(lossClip, transform.position);
+        StartCoroutine(FadeBlackOut(false));
     }
     void GoodOver()
     {
@@ -232,10 +315,28 @@ public class User : MonoBehaviour
             item.enabled = !item.enabled;
         }
         isGameOver = true;
-        win.enabled = true;
-        AudioSource.PlayClipAtPoint(winClip, transform.position);
+        if (audioSource)
+        {
+            audioSource.Pause();
+        }
+        AudioSource.PlayClipAtPoint(scream, transform.position);
+        StartCoroutine(FadeBlackOut(true));
     }
 
+    public void OnPause()
+    {
+        foreach (var item in MonsterButtons)
+        {
+            item.enabled = !item.enabled;
+        }
+        PauseMenu.SetActive(!PauseMenu.activeSelf);
+        isPaused = !isPaused;
+    }
+    public void OnPlayAgain()
+    {
+        SceneManager.LoadScene(1);
+    }
+    
     void OnDebug()
     {
 #if UNITY_EDITOR
@@ -244,6 +345,14 @@ public class User : MonoBehaviour
             Money += 9999999;
             moneyText.text = Money.ToString();
 
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GoodOver();
+        }
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            GameOver();
         }
 
 #endif
