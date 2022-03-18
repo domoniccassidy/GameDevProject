@@ -147,7 +147,7 @@ MonoBehaviour:
   monsterName: Shronk
   speed: 2
   health: 500
-  cost: 2000
+  cost: 1500
   healthDamage: 0
   moneyGainedPerTile: 2
   info: Ate Gobbi's hamster, tanks damage

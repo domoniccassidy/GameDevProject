@@ -101,7 +101,7 @@ MonoBehaviour:
   monsterName: Summoner
   speed: 1
   health: 100
-  cost: 1500
+  cost: 1000
   healthDamage: 0
   moneyGainedPerTile: 5
   info: Middle manager pre-invasion
@@ -169,4 +169,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: {fileID: 0}
   skele: {fileID: 5050453026962950388, guid: 19fc933bec147994ebd61dc1c78cc691, type: 3}
-  spawnTime: 4
+  spawnTime: 3

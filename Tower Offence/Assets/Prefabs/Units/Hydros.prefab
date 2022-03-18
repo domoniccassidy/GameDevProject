@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Hydros
   speed: 2
-  health: 33
+  health: 40
   cost: 1000
   healthDamage: 25
   moneyGainedPerTile: 10
