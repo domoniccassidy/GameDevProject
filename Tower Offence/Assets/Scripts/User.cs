@@ -39,9 +39,9 @@ public class User : MonoBehaviour
     public Text menuLivesText;
     public Text menuTimeText;
     public Text menuStolenText;
-    public AudioClip winClip;
+    
     public AudioClip lossClip;
-    public AudioClip scream;
+    public AudioClip victoryMusic;
 
     GameObject myEventSystem;
 
@@ -267,7 +267,7 @@ public class User : MonoBehaviour
         float tempStolen = 0;
         while (tempStolen < moneyStolen)
         {
-            tempStolen += 0.0005f * moneyStolen;
+            tempStolen += 0.00075f * moneyStolen;
             menuStolenText.text = Mathf.Round(tempStolen).ToString();
             yield return null;
         }
@@ -319,7 +319,7 @@ public class User : MonoBehaviour
         {
             audioSource.Pause();
         }
-        AudioSource.PlayClipAtPoint(scream, transform.position);
+        AudioSource.PlayClipAtPoint(victoryMusic, transform.position);
         StartCoroutine(FadeBlackOut(true));
     }
 

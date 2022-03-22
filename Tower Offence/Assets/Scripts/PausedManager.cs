@@ -46,6 +46,6 @@ public class PausedManager : MonoBehaviour
     public void OnQuitTD()
     {
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
+        
     }
 }
