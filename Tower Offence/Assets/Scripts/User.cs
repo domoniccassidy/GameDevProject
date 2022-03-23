@@ -267,7 +267,7 @@ public class User : MonoBehaviour
         float tempStolen = 0;
         while (tempStolen < moneyStolen)
         {
-            tempStolen += 0.00075f * moneyStolen;
+            tempStolen += 0.002f * moneyStolen;
             menuStolenText.text = Mathf.Round(tempStolen).ToString();
             yield return null;
         }
@@ -275,7 +275,7 @@ public class User : MonoBehaviour
         float tempLives = 0;
         while (tempLives < livesTaken )
         {
-            tempLives += 0.0005f * livesTaken;
+            tempLives += 0.002f * livesTaken;
             menuLivesText.text = Mathf.Round(tempLives).ToString();
             yield return null;
         }
@@ -283,7 +283,7 @@ public class User : MonoBehaviour
         float tempTime = 0;
         while (tempTime < timeElapsed)
         {
-            tempTime += 0.0005f * timeElapsed;
+            tempTime += 0.002f * timeElapsed;
             menuTimeText.text = Mathf.Round(tempTime).ToString();
             yield return null;
         }

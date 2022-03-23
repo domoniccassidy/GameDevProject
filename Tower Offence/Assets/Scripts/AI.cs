@@ -55,7 +55,7 @@ public class AI : MonoBehaviour
                 timer -= Time.deltaTime;
             }
            
-            if (alert4.Alert4 && towerSelect < 10000)
+            if (alert4.Alert4 && towerSelect < 10000 && spawnPrio[3].Count != 0)
             {
                 towerSelect += 20000;
             }
@@ -65,6 +65,7 @@ public class AI : MonoBehaviour
                 towerSelect += 10000;
 
             }
+            
             if (towerSelect < 6000)
             {
                 if(money >= 100)
