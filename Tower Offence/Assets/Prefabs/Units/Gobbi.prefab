@@ -151,6 +151,12 @@ MonoBehaviour:
   healthDamage: 1
   moneyGainedPerTile: 15
   info: Fast Fast, eye for cash, very squishy
+  ability: N/A
+  image: {fileID: 0}
   skele: {fileID: 0}
-  points: {fileID: 0}
+  deathClip: {fileID: 8300000, guid: cd06f7072c4b98a4790c29c050cc80c5, type: 3}
+  SEM: {fileID: 0}
+  inspiration: {fileID: 8838285894432769696, guid: 4b4b8b43bcf4af245a87bdaeb4572f58, type: 3}
+  points:
+  - {fileID: 0}
   pointIndex: 0

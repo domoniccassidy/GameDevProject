@@ -13,9 +13,10 @@ public class AI : MonoBehaviour
     public AlertAiTo3 alert3;
     public AlertAiTo4 alert4;
     public User user;
-    int money = 90;
+    public int money;
     float timerMax = 1;
     float timer = 1;
+    public int moneyConstant;
 
   
 
@@ -48,13 +49,18 @@ public class AI : MonoBehaviour
             if (timer <= 0)
             {
                 timer = timerMax;
-                money += 20;
+                money += moneyConstant;
             }
             else
             {
                 timer -= Time.deltaTime;
             }
            
+            if(towerSelect > 6000 && spawnPrio[1].Count < 1)
+            {
+                towerSelect -= 4000;
+            }
+
             if (alert4.Alert4 && towerSelect < 10000 && spawnPrio[3].Count != 0)
             {
                 towerSelect += 20000;
@@ -66,6 +72,8 @@ public class AI : MonoBehaviour
 
             }
             
+
+           
             if (towerSelect < 6000)
             {
                 if(money >= 100)
@@ -103,7 +111,17 @@ public class AI : MonoBehaviour
                 }
                 else
                 {
-                    if (money >= 100)
+
+                    if(user.TimeLeft < 125 && money >= 300)
+                    {
+                        
+                        int choosePos = Random.Range(0, spawnPrio[2].Count);
+                        Instantiate(tower1[2], numberTiles.GetCellCenterWorld(spawnPrio[2][choosePos]), Quaternion.identity);
+                        spawnPrio[2].RemoveAt(choosePos);
+                        newTower = false;
+                        money -= 300;
+                    }
+                    else if (money >= 100 && user.TimeLeft > 125)
                     {
                         int choosePos = Random.Range(0, spawnPrio[2].Count);
                         Instantiate(tower1[0], numberTiles.GetCellCenterWorld(spawnPrio[2][choosePos]), Quaternion.identity);
@@ -111,6 +129,7 @@ public class AI : MonoBehaviour
                         newTower = false;
                         money -= 100;
                     }
+                    
                 }
                
             }
@@ -130,7 +149,16 @@ public class AI : MonoBehaviour
                 }
                 else
                 {
-                    if (money >= 100)
+                    if (user.TimeLeft < 125 && money >= 300)
+                    {
+
+                        int choosePos = Random.Range(0, spawnPrio[2].Count);
+                        Instantiate(tower1[2], numberTiles.GetCellCenterWorld(spawnPrio[2][choosePos]), Quaternion.identity);
+                        spawnPrio[2].RemoveAt(choosePos);
+                        newTower = false;
+                        money -= 300;
+                    }
+                   else  if (money >= 100  && user.TimeLeft > 125)
                     {
                         int choosePos = Random.Range(0, spawnPrio[3].Count);
                         Instantiate(tower1[0], numberTiles.GetCellCenterWorld(spawnPrio[3][choosePos]), Quaternion.identity);

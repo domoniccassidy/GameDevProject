@@ -6,19 +6,23 @@ public class ArrowScript : MonoBehaviour
 {
     public float moveSpeed = 10;
     public Transform enemy;
-    public float damage = 2;
+    public float damage ;
     public string towerFiredFrom;
     float timeSinceFired = 0;
     public float lifeSpan =1;
+    public float pierce ;
+ 
     User user;
-    Vector3 originalTransform;
+
     private void Start()
     {
         user = FindObjectOfType<User>();
-        originalTransform = transform.position;
+ 
+
     }
     private void Update()
     {
+        
         if (user.isGameOver)
         {
             Destroy(gameObject);
@@ -33,16 +37,23 @@ public class ArrowScript : MonoBehaviour
             Destroy(gameObject);
            
         }
-        if (enemy != null && towerFiredFrom != "Circle")
+        
+        if (enemy != null && towerFiredFrom == "Tower")
         {
+            
             Vector3 target = (enemy.position - transform.position).normalized;
             transform.position += target * Time.deltaTime * moveSpeed;
             timeSinceFired += Time.deltaTime;
         }
-        else if(towerFiredFrom == "Circle")
+        else if(towerFiredFrom == "Circle Tower")
         {
 
             Vector3 target = transform.forward;
+            transform.position -= transform.up * Time.deltaTime * moveSpeed;
+            timeSinceFired += Time.deltaTime;
+        }
+        else if(towerFiredFrom == "Power Tower")
+        {
             transform.position -= transform.up * Time.deltaTime * moveSpeed;
             timeSinceFired += Time.deltaTime;
         }
@@ -57,7 +68,13 @@ public class ArrowScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         collision.GetComponent<Unit>().Damage(damage);
-
-        Destroy(gameObject);
+       
+        pierce -= 1;
+        if(pierce == 0)
+        {
+            Destroy(gameObject);
+        }
+        
+       
     }
 }

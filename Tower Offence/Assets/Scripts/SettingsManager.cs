@@ -11,6 +11,7 @@ public class SettingsManager : MonoBehaviour
     public AudioMixer AM;
     public Slider musicSlider; 
     public float slide = 1;
+    public float effectsSlide = 1;
     public GameObject test;
     private void Start()
     {
@@ -25,14 +26,10 @@ public class SettingsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        musicSlider.value = slide;
+       
         
     
     }
 
-    public void SetLevel(float sliderValue)
-    {
-        AM.SetFloat("MusicControl", Mathf.Log10(sliderValue) * 20);
-        slide = sliderValue;
-    }
+   
 }

@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602023571729415738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.514, y: 0.0475, z: 0}
-  m_LocalScale: {x: 1.102739, y: 0.93220305, z: 0.71236}
+  m_LocalPosition: {x: -0.1047, y: 0.54, z: 0}
+  m_LocalScale: {x: 0.63413733, y: 0.6826494, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 11cbe18c78de2f247aacc92f860cf76e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b5259f62b3f238428ca7a051acf64f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,13 @@ MonoBehaviour:
   projectileShootFromPosition: {x: 0, y: 0, z: 0}
   shotDelay: 0.5
   arrow: {fileID: 6569009178681665937, guid: e47b168ffd9ef9f4386bbae60a47fa39, type: 3}
-  towerName: Circle
+  towerName: Circle Tower
+  pierce: 1
+  cost: 200
+  info: Shoots in all directions, be careful when swaming!
+  range: 0
+  damage: 2
+  shots: 8
 --- !u!58 &-3812828949291268984
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -115,4 +121,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 3

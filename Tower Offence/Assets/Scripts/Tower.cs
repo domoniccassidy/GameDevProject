@@ -11,6 +11,12 @@ public class Tower : MonoBehaviour
     float sinceLastShot = 0;
     public GameObject arrow;
     public string towerName;
+    public float pierce;
+    public float cost;
+    public string info;
+    public float range;
+    public float damage;
+    public float shots;
 
 
     User user;
@@ -20,6 +26,7 @@ public class Tower : MonoBehaviour
     private void Start()
     {
         user = FindObjectOfType<User>();
+        range = GetComponent<CircleCollider2D>().radius;
         
     }
     private void Update()
@@ -52,13 +59,18 @@ public class Tower : MonoBehaviour
               
                 }
                 sinceLastShot -= shotDelay;
-                if (enemy != null && towerName == "Diamond")
+                if (enemy != null && towerName != "Circle Tower")
                 {
                     DiamondShot();
                 }
-                else if(enemy != null && towerName == "Circle")
+                else if(enemy != null && towerName == "Circle Tower")
                 {
+                  
                     CircleShot();
+                }
+                else
+                {
+
                 }
             }
 
@@ -73,19 +85,27 @@ public class Tower : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         arrowRef.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         arrowRef.transform.Rotate(new Vector3(0, 0, 85));
+        arrowRef.GetComponent<ArrowScript>().damage = damage;
         arrowRef.GetComponent<ArrowScript>().enemy = enemy;
+        arrowRef.GetComponent<ArrowScript>().pierce = pierce;
+        arrowRef.GetComponent<ArrowScript>().towerFiredFrom = towerName;
     }
     void CircleShot() 
     {
-        for (int i = 0; i < 8; i++)
+        
+        for (int i = 0; i < shots; i++)
         {
+            
             GameObject arrowRef = Instantiate(arrow, transform);
             arrowRef.transform.Rotate(i * new Vector3(0,0,45));
+            
             arrowRef.GetComponent<ArrowScript>().lifeSpan = 0.2f;
+            arrowRef.GetComponent<ArrowScript>().damage = damage;
+            arrowRef.GetComponent<ArrowScript>().pierce = pierce;
             arrowRef.GetComponent<ArrowScript>().towerFiredFrom = towerName;
         }
-       
     }
+    
 
   
 }

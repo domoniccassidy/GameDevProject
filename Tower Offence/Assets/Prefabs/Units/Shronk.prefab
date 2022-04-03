@@ -98,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.023645788, y: -0.019281447}
+  m_Offset: {x: 0.026571855, y: -0.019281447}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7081254, y: 0.801437}
+  m_Size: {x: 0.8193165, y: 0.801437}
   m_EdgeRadius: 0
 --- !u!50 &2160649282001795190
 Rigidbody2D:
@@ -150,7 +150,13 @@ MonoBehaviour:
   cost: 1500
   healthDamage: 0
   moneyGainedPerTile: 2
-  info: Ate Gobbi's hamster, tanks damage
+  info: Ate Gobbi's hamster
+  ability: Tanks Damage
+  image: {fileID: 0}
   skele: {fileID: 0}
-  points: {fileID: 0}
+  deathClip: {fileID: 8300000, guid: 3ada15c5a2f59c04b8e46bdfcb18c9df, type: 3}
+  SEM: {fileID: 0}
+  inspiration: {fileID: 8838285894432769696, guid: 4b4b8b43bcf4af245a87bdaeb4572f58, type: 3}
+  points:
+  - {fileID: 0}
   pointIndex: 0

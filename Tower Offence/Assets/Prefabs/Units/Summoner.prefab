@@ -105,8 +105,14 @@ MonoBehaviour:
   healthDamage: 0
   moneyGainedPerTile: 5
   info: Middle manager pre-invasion
+  ability: Spawns Skellis
+  image: {fileID: 0}
   skele: {fileID: 0}
-  points: {fileID: 0}
+  deathClip: {fileID: 8300000, guid: 12dbb550405a9694789063459cebb858, type: 3}
+  SEM: {fileID: 0}
+  inspiration: {fileID: 8838285894432769696, guid: 4b4b8b43bcf4af245a87bdaeb4572f58, type: 3}
+  points:
+  - {fileID: 0}
   pointIndex: 0
 --- !u!50 &8103151091492698766
 Rigidbody2D:

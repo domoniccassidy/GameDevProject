@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 64254791}
   - component: {fileID: 64254790}
   m_Layer: 5
-  m_Name: Coming Soon
+  m_Name: Vicious Volcano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64254788}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -316,7 +316,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 64254791}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1368165511}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: OnViciousVolcano
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &64254791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1132,10 +1144,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicVolume: 100
   effectsVolume: 100
-  AM: {fileID: 24100000, guid: 9f1017fad8fb41744abf3683b54be3e2, type: 2}
-  musicSlider: {fileID: 1522887606}
+  AM: {fileID: 0}
+  musicSlider: {fileID: 0}
   slide: 1
-  test: {fileID: 2101414908}
+  effectsSlide: 1
+  test: {fileID: 0}
 --- !u!4 &862678883
 Transform:
   m_ObjectHideFlags: 0
@@ -1990,6 +2003,11 @@ MonoBehaviour:
   - {fileID: 1452413626}
   - {fileID: 1000453281}
   - {fileID: 128553468}
+  AM: {fileID: 24100000, guid: 9f1017fad8fb41744abf3683b54be3e2, type: 2}
+  EM: {fileID: 24100000, guid: 1fa756775a78d5b448a7a623aef48dfb, type: 2}
+  musicSlider: {fileID: 1522887606}
+  effectsSlider: {fileID: 1884151061}
+  SM: {fileID: 862678882}
 --- !u!4 &1368165512
 Transform:
   m_ObjectHideFlags: 0
@@ -2402,8 +2420,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 862678882}
-        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+      - m_Target: {fileID: 1368165511}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: SetLevel
         m_Mode: 0
         m_Arguments:
@@ -2980,7 +2998,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Coming Soon
+  m_Text: Vicious Volcano
 --- !u!222 &1819336073
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3157,7 +3175,19 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1368165511}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: SetEffectsLevel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1892950003
 GameObject:
   m_ObjectHideFlags: 0

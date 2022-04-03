@@ -151,6 +151,12 @@ MonoBehaviour:
   healthDamage: 1
   moneyGainedPerTile: 5
   info: Slow, weak, bony - pretty basic soldier
+  ability: N/A
+  image: {fileID: 0}
   skele: {fileID: 0}
-  points: {fileID: 0}
+  deathClip: {fileID: 8300000, guid: ca17229d3e19cd64e9c93c7dd732634f, type: 3}
+  SEM: {fileID: 0}
+  inspiration: {fileID: 8838285894432769696, guid: 4b4b8b43bcf4af245a87bdaeb4572f58, type: 3}
+  points:
+  - {fileID: 0}
   pointIndex: 0

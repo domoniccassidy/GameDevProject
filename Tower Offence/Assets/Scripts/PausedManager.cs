@@ -9,7 +9,9 @@ public class PausedManager : MonoBehaviour
     public GameObject Mains;
     public GameObject Options;
     public AudioMixer AM;
+    public AudioMixer EM;
     public Slider MusicSlider;
+    public Slider EffectsSlider;
     public List<GameObject> selectedButtons;
     public User user;
 
@@ -17,7 +19,8 @@ public class PausedManager : MonoBehaviour
     {
         selectedButtons[0].GetComponent<Button>().Select();
         MusicSlider.value = GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().slide;
-        
+        EffectsSlider.value = GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().effectsSlide;
+
     }
     public void OnOptions()
     {
@@ -34,6 +37,12 @@ public class PausedManager : MonoBehaviour
     public void SetLevel(float sliderValue)
     {
         AM.SetFloat("MusicControl", Mathf.Log10(sliderValue) * 20);
+        GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().slide = sliderValue;
+    }
+    public void SetEffectsLevel(float sliderValue)
+    {
+        EM.SetFloat("EffectsControl", Mathf.Log10(sliderValue) * 20);
+        GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().effectsSlide = sliderValue;
     }
     public void OnResume()
     {

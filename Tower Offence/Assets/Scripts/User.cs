@@ -17,15 +17,13 @@ public class User : MonoBehaviour
     public Text liveText;
     public Text moneyText;
     public Text timeText;
-    public Text monsterText;
-    public Text costText;
-    public Text damageText;
-    public Text stealageText;
-    public Text infoText;
-    public Text healthText;
+    
 
     public GameObject PauseMenu;
     public List<Button> MonsterButtons;
+
+    public GameObject Almanac;
+    public GameObject uiHolder;
 
     public GameObject blackOut;
     public GameObject levelText;
@@ -50,6 +48,8 @@ public class User : MonoBehaviour
     public float moneyStolen = 0;
     float musicVolume;
     AudioSource audioSource;
+    float timeElapsed =0;
+    float livesTaken;
     private void Start()
     {
         Screen.fullScreen = !Screen.fullScreen;
@@ -60,6 +60,8 @@ public class User : MonoBehaviour
         musicVolume = FindObjectOfType<SettingsManager>().musicVolume;
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = musicVolume / 100;
+       
+
 
     }
     // Update is called once per frame
@@ -73,6 +75,7 @@ public class User : MonoBehaviour
         if (!isGameOver && !isPaused)
         {
             TimeLeft -= Time.deltaTime;
+            timeElapsed += Time.deltaTime;
 
             if (Mathf.Floor(TimeLeft) < float.Parse(timeText.text))
             {
@@ -86,25 +89,41 @@ public class User : MonoBehaviour
             {
                 GoodOver();
             }
-            if (Input.GetKeyDown(KeyCode.Keypad1))
+            if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
             {
                 SpawnSkelle();
             }
-            if (Input.GetKeyDown(KeyCode.Keypad2))
+            if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
             {
                 SpawnGobbi();
             }
-            if (Input.GetKeyDown(KeyCode.Keypad3))
+            if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3))
             {
                 SpawnHydros();
             }
-            if (Input.GetKeyDown(KeyCode.Keypad4))
+            if (Input.GetKeyDown(KeyCode.Keypad4) || Input.GetKeyDown(KeyCode.Alpha4))
             {
                 SpawnShronk();
             }
-            if (Input.GetKeyDown(KeyCode.Keypad5))
+            if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Alpha5))
             {
                 SpawnSummoner();
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                SpawnCrisp();
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad7) || Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                SpawnBongo();
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                SpawnFather();
+            }
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                StartCoroutine(ToggleUI());
             }
         }
     }
@@ -116,11 +135,14 @@ public class User : MonoBehaviour
 
             if (Lives - healthTaken < 0)
             {
+                livesTaken += Lives;
                 Lives = 0;
+                
             }
             else
             {
                 Lives -= healthTaken;
+                livesTaken += healthTaken;
             }
             liveText.text = Lives.ToString();
         }
@@ -210,20 +232,50 @@ public class User : MonoBehaviour
 
         }
     }
-    public void MonsterInfo(int selectedMonster)
+    public void SpawnCrisp()
     {
         if (isPaused || isGameOver)
         {
             return;
         }
-        //Debug.Log(units[selectedMonster].GetComponent<Unit>().monsterName);
-        Unit monsterDetails = units[selectedMonster].GetComponent<Unit>();
-        monsterText.text = ("Monster: " + monsterDetails.monsterName);
-        costText.text = ("Cost: " + monsterDetails.cost);
-        healthText.text = ("Health: " + monsterDetails.health);
-        damageText.text = ("Damage: " + monsterDetails.healthDamage);
-        stealageText.text = ("Stealage: " + monsterDetails.moneyGainedPerTile);
-        infoText.text = (monsterDetails.info);
+        if (units[5].GetComponent<Unit>().cost <= Money)
+        {
+            ES.Spawn(units[5]);
+            Money -= units[5].GetComponent<Unit>().cost;
+            moneyText.text = Money.ToString();
+            myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+        }
+    }
+    public void SpawnBongo()
+    {
+        if (isPaused || isGameOver)
+        {
+            return;
+        }
+        if (units[6].GetComponent<Unit>().cost <= Money)
+        {
+            ES.Spawn(units[6]);
+            Money -= units[6].GetComponent<Unit>().cost;
+            moneyText.text = Money.ToString();
+            myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+        }
+    }
+    public void SpawnFather()
+    {
+        if (isPaused || isGameOver)
+        {
+            return;
+        }
+        if (units[7].GetComponent<Unit>().cost <= Money)
+        {
+            ES.Spawn(units[7]);
+            Money -= units[7    ].GetComponent<Unit>().cost;
+            moneyText.text = Money.ToString();
+            myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+        }
     }
     public IEnumerator FadeBlackOut(bool win,int fadeSpeed =1)
     {
@@ -232,8 +284,6 @@ public class User : MonoBehaviour
         Color levelTextColour = levelText.GetComponent<Text>().color;
         float fadeAmount;
         float waitTime = 1.4f;
-        float timeElapsed = 200 - TimeLeft;
-        float livesTaken = 50 - Lives;
         while(blackOut.GetComponent<Image>().color.a < 1)
         {
             fadeAmount = objectColour.a += (fadeSpeed * Time.deltaTime);
@@ -267,7 +317,7 @@ public class User : MonoBehaviour
         float tempStolen = 0;
         while (tempStolen < moneyStolen)
         {
-            tempStolen += 0.002f * moneyStolen;
+            tempStolen += 0.005f * moneyStolen;
             menuStolenText.text = Mathf.Round(tempStolen).ToString();
             yield return null;
         }
@@ -275,7 +325,7 @@ public class User : MonoBehaviour
         float tempLives = 0;
         while (tempLives < livesTaken )
         {
-            tempLives += 0.002f * livesTaken;
+            tempLives += 0.005f * livesTaken;
             menuLivesText.text = Mathf.Round(tempLives).ToString();
             yield return null;
         }
@@ -283,7 +333,7 @@ public class User : MonoBehaviour
         float tempTime = 0;
         while (tempTime < timeElapsed)
         {
-            tempTime += 0.002f * timeElapsed;
+            tempTime += 0.005f * timeElapsed;
             menuTimeText.text = Mathf.Round(tempTime).ToString();
             yield return null;
         }
@@ -291,6 +341,38 @@ public class User : MonoBehaviour
         menuButton.SetActive(true);
 
 
+    }
+    public IEnumerator ToggleUI(int toggleSpeed = 400)
+    {
+        Vector3 originalPosition = uiHolder.transform.position;
+
+        if (originalPosition.x == 960)
+        {
+            while (uiHolder.transform.position.x < 1250)
+            {
+                
+                uiHolder.transform.position += new Vector3(toggleSpeed * Time.deltaTime, 0);
+                if (uiHolder.transform.position.x > 1250)
+                {
+                    uiHolder.transform.position = new Vector3(1250, uiHolder.transform.position.y, 0);
+                }
+                yield return null;
+            }
+    
+        }
+       else if (originalPosition.x == 1250)
+        {
+            while (uiHolder.transform.position.x > 960)
+            {
+              
+                uiHolder.transform.position -= new Vector3(toggleSpeed * Time.deltaTime, 0);
+                if(uiHolder.transform.position.x < 960)
+                {
+                    uiHolder.transform.position = new Vector3(960, uiHolder.transform.position.y, 0);
+                }
+                yield return null;
+            }
+        }
     }
     void GameOver()
     {
@@ -332,11 +414,16 @@ public class User : MonoBehaviour
         PauseMenu.SetActive(!PauseMenu.activeSelf);
         isPaused = !isPaused;
     }
+    public void OnAlmanac()
+    {
+        Almanac.SetActive(!Almanac.activeSelf);
+        isPaused = !isPaused;
+    }
     public void OnPlayAgain()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
+
     void OnDebug()
     {
 #if UNITY_EDITOR
