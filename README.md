@@ -44,6 +44,16 @@ Main Menu Music - mrpoly - https://opengameart.org/content/menu-music
 
 The monsters - u/Vovalium - https://www.reddit.com/r/PixelArt/comments/osgwkj/some_pixel_art_monsters/
 
+Sumoner and Hydros death sound - Jason Shaw - https://www.youtube.com/watch?v=7HCyp_sq8Dk&ab_channel=AllSounds
+
+Skelli death sound - https://mixkit.co/free-sound-effects/hurt/
+
+Gobbi death sound - https://www.dreamstime.com/stock-music-sound-effect/squish.html
+
+Shronk death sound - https://www.youtube.com/watch?v=2fGG2g7xbY4&ab_channel=MotionArray
+
+The towers - @squareaddict0 - https://twitter.com/squareaddict0/status/1028444524320882690?lang=fi
+
 Friendly Flowers background music - syncopika - https://opengameart.org/content/happy-tune
 
 Friendly Flowers tiles - qubodup, Bart K., Blarumyrran - https://opengameart.org/content/oga-community-tileset-nature
