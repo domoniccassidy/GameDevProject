@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     public GameObject Buttons;
     public GameObject LevelButtons;
     public GameObject OptionButtons;
+    public GameObject HighScores;
     public List<GameObject> selectedButtons;
     public AudioMixer AM;
     public AudioMixer EM;
@@ -40,11 +41,18 @@ public class MenuManager : MonoBehaviour
         OptionButtons.SetActive(true);
         selectedButtons[2].GetComponent<Button>().Select();
     }
+    public void OnHighScoreSelect()
+    {
+        Buttons.SetActive(false);
+        HighScores.SetActive(true);
+        selectedButtons[3].GetComponent<Button>().Select();
+    }
     public void Back()
     {
         Buttons.SetActive(true);
         OptionButtons.SetActive(false);
         LevelButtons.SetActive(false);
+        HighScores.SetActive(false);
         selectedButtons[0].GetComponent<Button>().Select();
 
     }

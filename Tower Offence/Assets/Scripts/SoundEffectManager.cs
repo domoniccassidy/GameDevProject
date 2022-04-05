@@ -13,6 +13,11 @@ public class SoundEffectManager : MonoBehaviour
         {0,"" },
         {1,"" }
     };
+
+    private void Awake()
+    {
+        user = GameObject.Find("UserController").GetComponent<User>();
+    }
     void Update()
     {
         if(!sources[0].isPlaying && clipNames[0] != "")

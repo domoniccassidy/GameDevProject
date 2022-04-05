@@ -52,6 +52,12 @@ Gobbi death sound - https://www.dreamstime.com/stock-music-sound-effect/squish.h
 
 Shronk death sound - https://www.youtube.com/watch?v=2fGG2g7xbY4&ab_channel=MotionArray
 
+Bongo death sound - https://mixkit.co/free-sound-effects/drum/
+
+Crisp death sound - Sound jay - https://www.soundjay.com/fire-sound-effects.html
+
+Father Time death sound - https://mixkit.co/free-sound-effects/clock/
+
 The towers - @squareaddict0 - https://twitter.com/squareaddict0/status/1028444524320882690?lang=fi
 
 Friendly Flowers background music - syncopika - https://opengameart.org/content/happy-tune

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class User : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class User : MonoBehaviour
     public GameObject timeHolder;
     public GameObject retryButton;
     public GameObject menuButton;
+    public GameObject inputObject;
+    public GameObject submitButton;
     public Text menuLivesText;
     public Text menuTimeText;
     public Text menuStolenText;
@@ -50,6 +53,10 @@ public class User : MonoBehaviour
     AudioSource audioSource;
     float timeElapsed =0;
     float livesTaken;
+
+    List<string> leaderboard;
+    public InputField input;
+    public Text submitText;
     private void Start()
     {
         Screen.fullScreen = !Screen.fullScreen;
@@ -60,7 +67,8 @@ public class User : MonoBehaviour
         musicVolume = FindObjectOfType<SettingsManager>().musicVolume;
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = musicVolume / 100;
-       
+        leaderboard = GameObject.Find("LeaderboardManager").GetComponent<LeaderBoard>().leaderboard;
+        Debug.Log(leaderboard[SceneManager.GetActiveScene().buildIndex - 1]);
 
 
     }
@@ -338,6 +346,8 @@ public class User : MonoBehaviour
             yield return null;
         }
         retryButton.SetActive(true);
+        submitButton.SetActive(win);
+        inputObject.SetActive(win);
         menuButton.SetActive(true);
 
 
@@ -424,6 +434,59 @@ public class User : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void OnSetHighScores() 
+    {
+        List<string> tempScores = leaderboard[SceneManager.GetActiveScene().buildIndex - 1].Split('-').ToList();
+        List<string> timeScores;
+        List<string> moneyScores;
+        
+       for(int i = 0; i< (timeScores = tempScores[0].Split(',').ToList()).Count; i++)
+        {
+            List<string> seperateEntry = timeScores[i].Split(':').ToList();
+
+            if (timeElapsed < int.Parse(seperateEntry[1]))
+            {
+                timeScores.Insert(i, input.text + ":" + Mathf.RoundToInt(timeElapsed));
+                timeScores.RemoveAt(5);
+                break;
+            }
+        }
+        for (int i = 0; i < (moneyScores = tempScores[1].Split(',').ToList()).Count; i++)
+        {
+            List<string> seperateEntry = moneyScores[i].Split(':').ToList();
+     
+            if (moneyStolen > int.Parse(seperateEntry[1]))
+            {
+                moneyScores.Insert(i, input.text + ":" + moneyStolen);
+                moneyScores.RemoveAt(5);
+                break;
+            }
+        }
+
+        string tempTime = "";
+        string tempMoney = "";
+        for (int i = 0; i < 5; i++)
+        {
+            if (i != 4)
+            {
+                tempTime += timeScores[i] + ",";
+                tempMoney += moneyScores[i] + ",";
+            }
+            else
+            {
+                tempTime += timeScores[i];
+                    tempMoney += moneyScores[i];
+            }
+        }
+  
+        leaderboard[SceneManager.GetActiveScene().buildIndex - 1] = tempTime + "-" + tempMoney;
+        PlayerPrefs.SetString(SceneManager.GetActiveScene().name, leaderboard[SceneManager.GetActiveScene().buildIndex - 1]);
+        submitText.text = "Score Submitted";
+        Debug.Log(submitText.text);
+        submitButton.GetComponent<Button>().interactable = false;
+      
+
+    }
     void OnDebug()
     {
 #if UNITY_EDITOR
