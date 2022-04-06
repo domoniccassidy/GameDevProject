@@ -59,7 +59,7 @@ public class User : MonoBehaviour
     public Text submitText;
     private void Start()
     {
-        Screen.fullScreen = !Screen.fullScreen;
+        
         liveText.text = Lives.ToString();
         timeText.text = TimeLeft.ToString();
         moneyText.text = Money.ToString();
@@ -68,7 +68,7 @@ public class User : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = musicVolume / 100;
         leaderboard = GameObject.Find("LeaderboardManager").GetComponent<LeaderBoard>().leaderboard;
-        Debug.Log(leaderboard[SceneManager.GetActiveScene().buildIndex - 1]);
+        Debug.Log("Level Started - " + Time.time);
 
 
     }

@@ -19,14 +19,16 @@ public class MenuManager : MonoBehaviour
     public Slider effectsSlider;
     
     public SettingsManager SM;
-    
+
 
     private void Start()
     {
+        
         selectedButtons[0].GetComponent<Button>().Select();
         SM = GameObject.Find("SettingsHolder").GetComponent<SettingsManager>();
         musicSlider.value = GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().slide;
         effectsSlider.value = GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().effectsSlide;
+
     }
     public void OnLevelSelect()
     {
@@ -66,17 +68,20 @@ public class MenuManager : MonoBehaviour
         EM.SetFloat("EffectsControl", Mathf.Log10(sliderValue) * 20);
         GameObject.Find("SettingsHolder").GetComponent<SettingsManager>().effectsSlide = sliderValue;
     }
+
     public void OnFriendlyFlowers()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadSceneAsync(1);
     }
     public void OnViciousVolcano()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadSceneAsync(2);
     }
     public void OnQuit()
     {
         Application.Quit();
 
     }
+
+    
 }
