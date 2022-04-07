@@ -30,6 +30,7 @@ public class User : MonoBehaviour
     public GameObject levelText;
     public GameObject gameOverCanvas;
     public GameObject outcomeText;
+    public GameObject outcomeInitText;
     public GameObject stolenHolder;
     public GameObject livesHolder;
     public GameObject timeHolder;
@@ -59,16 +60,17 @@ public class User : MonoBehaviour
     public Text submitText;
     private void Start()
     {
-        
+        musicVolume = FindObjectOfType<SettingsManager>().musicVolume;
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.volume = musicVolume / 100;
         liveText.text = Lives.ToString();
         timeText.text = TimeLeft.ToString();
         moneyText.text = Money.ToString();
         myEventSystem = GameObject.Find("EventSystem");
-        musicVolume = FindObjectOfType<SettingsManager>().musicVolume;
-        audioSource = GetComponent<AudioSource>();
-        audioSource.volume = musicVolume / 100;
+       
         leaderboard = GameObject.Find("LeaderboardManager").GetComponent<LeaderBoard>().leaderboard;
-        Debug.Log("Level Started - " + Time.time);
+  
 
 
     }
@@ -290,13 +292,26 @@ public class User : MonoBehaviour
         gameOverCanvas.SetActive(true);
         Color objectColour = blackOut.GetComponent<Image>().color;
         Color levelTextColour = levelText.GetComponent<Text>().color;
+        Color outcomeInitTextColour = outcomeInitText.GetComponent<Text>().color;
         float fadeAmount;
         float waitTime = 1.4f;
-        while(blackOut.GetComponent<Image>().color.a < 1)
+        timeElapsed = Mathf.Floor(timeElapsed);
+        if (win)
+        {
+            outcomeInitText.GetComponent<Text>().text = "Congratulations";
+        }
+        else
+        {
+            outcomeInitText.GetComponent<Text>().text = "For Shame";
+
+        }
+        while (blackOut.GetComponent<Image>().color.a < 1)
         {
             fadeAmount = objectColour.a += (fadeSpeed * Time.deltaTime);
             objectColour = new Color(0,0, 0, fadeAmount);
             levelTextColour = new Color(levelTextColour.r, levelTextColour.g, levelTextColour.b, fadeAmount);
+            outcomeInitTextColour = new Color(outcomeInitTextColour.r, outcomeInitTextColour.g, outcomeInitTextColour.b, fadeAmount);
+            outcomeInitText.GetComponent<Text>().color = outcomeInitTextColour;
             levelText.GetComponent<Text>().color = levelTextColour;
             blackOut.GetComponent<Image>().color = objectColour;
             yield return null;
@@ -396,8 +411,9 @@ public class User : MonoBehaviour
         {
             audioSource.Pause();
         }
-        
-        AudioSource.PlayClipAtPoint(lossClip, transform.position);
+
+        audioSource.clip = lossClip;
+        audioSource.Play();
         StartCoroutine(FadeBlackOut(false));
     }
     void GoodOver()
@@ -411,7 +427,9 @@ public class User : MonoBehaviour
         {
             audioSource.Pause();
         }
-        AudioSource.PlayClipAtPoint(victoryMusic, transform.position);
+        
+        audioSource.clip = victoryMusic;
+        audioSource.Play();
         StartCoroutine(FadeBlackOut(true));
     }
 
@@ -482,7 +500,7 @@ public class User : MonoBehaviour
         leaderboard[SceneManager.GetActiveScene().buildIndex - 1] = tempTime + "-" + tempMoney;
         PlayerPrefs.SetString(SceneManager.GetActiveScene().name, leaderboard[SceneManager.GetActiveScene().buildIndex - 1]);
         submitText.text = "Score Submitted";
-        Debug.Log(submitText.text);
+        
         submitButton.GetComponent<Button>().interactable = false;
       
 

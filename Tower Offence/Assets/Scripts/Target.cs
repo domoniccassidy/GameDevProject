@@ -9,7 +9,6 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Unit unit = collision.GetComponent<Unit>();
-        Debug.Log(unit.monsterName);
         if (unit.monsterName == "Father Time")
         {
             user.TimeLeft = 200;

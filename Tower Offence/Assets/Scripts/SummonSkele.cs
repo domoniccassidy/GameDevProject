@@ -20,7 +20,7 @@ public class SummonSkele : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (user.isGameOver)
+        if (user.isGameOver || user.isPaused)
         {
             return;
         }
